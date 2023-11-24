@@ -3,6 +3,7 @@ from graphics import *
 
 #initializing variables
 option=""
+outcome=0
 progress=0
 module_trailer=0
 module_retriever=0
@@ -19,52 +20,54 @@ def draw_histogram():
     height_4=0
 
     # Create a graphics window.
-    win = GraphWin("Histogram", 400, 300)
+    win = GraphWin("Histogram", 400, 320)
 
     # Window
     label = Text(Point(80, 24), 'Histogram Results')
     label.draw(win)
 
     #creating the 1st column
-    height_1=280-(progress*10)
+    height_1=260-(progress*10)
     label = Text(Point(60, (height_1-15)), progress)
-    box = Rectangle(Point(24, 280), Point(96, height_1)) # Height is 14 * 10 = (280 - 140) = 140
+    box = Rectangle(Point(24, 260), Point(96, height_1)) # Height is 14 * 10 = (260 - 140) = 140
     box.setFill("blue")
     box.draw(win)
     label.draw(win)
 
     #creating 2nd column
-    height_2=280-(module_trailer*10)
+    height_2=260-(module_trailer*10)
     label = Text(Point(145, (height_2-15)), module_trailer)
-    box = Rectangle(Point(106, 280), Point(178, height_2)) # Height is 10 * 10 = 100
+    box = Rectangle(Point(106, 260), Point(178, height_2)) # Height is 10 * 10 = 100
     box.setFill("red")
     box.draw(win)
     label.draw(win)
 
     #creating 3rd column
-    height_3=280-(module_retriever*10)
-    label = Text(Point(230, (height_3-15)), module_retriever)
-    box = Rectangle(Point(188, 280), Point(260, height_3)) # Height is 7 * 10 = 70
+    height_3=260-(module_retriever*10)
+    label = Text(Point(225, (height_3-15)), module_retriever)
+    box = Rectangle(Point(195, 260), Point(260, height_3)) # Height is 7 * 10 = 70
     box.setFill("green")
     box.draw(win)
     label.draw(win)
 
     #creating 4th column
-    height_4=280-(exclude*10)
+    height_4=260-(exclude*10)
     label = Text(Point(310, (height_4-15)), exclude)
-    box = Rectangle(Point(270, 280), Point(342, height_4)) # Height is 2 * 10 = 20
+    box = Rectangle(Point(280, 260), Point(342, height_4)) # Height is 2 * 10 = 20
     box.setFill("pink")
     box.draw(win)
     label.draw(win)
 
     #naming the  columns
-    label = Text(Point(60, 290), "Progress")
+    label = Text(Point(60, 270), "Progress")
     label.draw(win)
-    label = Text(Point(145, 290), "Trailer")
+    label = Text(Point(145, 270), "Trailer")
     label.draw(win)
-    label = Text(Point(230, 290), "Retriever")
+    label = Text(Point(230, 270), "Retriever")
     label.draw(win)
-    label = Text(Point(310, 290), "exclude")
+    label = Text(Point(310, 270), "exclude")
+    label.draw(win)
+    label = Text(Point(70,300),f"{outcome} outcomes in total.")
     label.draw(win)
 
     win.getMouse()
@@ -91,7 +94,7 @@ while True:
         total_marks=pass_mark+defer_mark+fail_mark
 
         if total_marks != 120:
-            print("out of range")
+            print("Total Incorrect")
 
         elif pass_mark == 120:
             print("Progress")
@@ -109,13 +112,15 @@ while True:
             print("Do not progress - module retriever")
             module_retriever += 1
 
-        outcome = progress+module_trailer+module_retriever+exclude
+
 
     elif option == "q":
         print("Program was terminated")
         break
     else:
         print("Invalid Input \n")
+
+outcome = progress+module_trailer+module_retriever+exclude
 
 
 draw_histogram()
