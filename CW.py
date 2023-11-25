@@ -94,22 +94,22 @@ while True:
         total_marks=pass_mark+defer_mark+fail_mark
 
         if total_marks != 120:
-            print("Total Incorrect")
+            print("Total Incorrect\n")
 
         elif pass_mark == 120:
-            print("Progress")
+            print("Progress\n")
             progress += 1
 
         elif pass_mark == 100:
-            print("Progress (module trailer) ")
+            print("Progress (module trailer) \n")
             module_trailer += 1
 
         elif fail_mark>=80 and fail_mark<=120:
-            print("Exclude")
+            print("Exclude\n")
             exclude += 1
 
         else:
-            print("Do not progress - module retriever")
+            print("Do not progress - module retriever \n")
             module_retriever += 1
 
 
@@ -119,6 +119,8 @@ while True:
         break
     else:
         print("Invalid Input \n")
+    
+    print("Would you like to enter another set of data")
 
 outcome = progress+module_trailer+module_retriever+exclude
 
