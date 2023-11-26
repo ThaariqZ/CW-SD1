@@ -12,6 +12,19 @@ pass_mark=0
 defer_mark=0
 fail_mark=0
 total_marks=0
+list=[]
+
+
+def get_valid_mark(marks):
+    while True:
+        try:
+            mark = int(input(marks))
+            if mark in range(0, 121, 20):
+                return mark
+            else:
+                print("Out of Range")
+        except ValueError:
+            print("Error: Enter a valid integer.")
 
 def draw_histogram():
     height_1=0
@@ -73,23 +86,25 @@ def draw_histogram():
     win.getMouse()
     win.close()
 
-def get_valid_mark(marks):
-    while True:
-        try:
-            mark = int(input(marks))
-            if mark in range(0, 121, 20):
-                return mark
-            else:
-                print("Out of Range")
-        except ValueError:
-            print("Error: Enter a valid integer.")
+
+def list_file():
+    file=open('myfile.txt','w')
+    for x in range(len(list)):
+        file.write(list[x])
+        file.write('\n')
+    file.close()
+
+def outcome_list():
+    for x in list:
+        print(*list, sep="\n")
+        break
 
 while True:
     option=input("Enter 'y' to run the program & 'q' to quit : ")
     if option == "y":
-        pass_mark = get_valid_mark("Enter Pass Mark: ")
-        defer_mark = get_valid_mark("Enter Defer Mark: ")
-        fail_mark = get_valid_mark("Enter Fail Mark: ") 
+        pass_mark = get_valid_mark("Enter pass Mark: ")
+        defer_mark = get_valid_mark("Enter defer Mark: ")
+        fail_mark = get_valid_mark("Enter fail Mark: ") 
 
         total_marks=pass_mark+defer_mark+fail_mark
 
@@ -98,24 +113,28 @@ while True:
 
         elif pass_mark == 120:
             print("Progress\n")
+            list.append('Progress'+' '+'-'+' '+str(pass_mark)+','+' '+str(defer_mark)+','+' '+str(fail_mark))
             progress += 1
 
         elif pass_mark == 100:
             print("Progress (module trailer) \n")
+            list.append('Progress(module trailer)'+' '+'-'+' '+str(pass_mark)+','+' '+str(defer_mark)+','+' '+str(fail_mark))
             module_trailer += 1
 
         elif fail_mark>=80 and fail_mark<=120:
             print("Exclude\n")
+            list.append('Exclude'+' '+'-'+' '+str(pass_mark)+','+' '+str(defer_mark)+','+' '+str(fail_mark))
             exclude += 1
 
         else:
             print("Do not progress - module retriever \n")
+            list.append('Module retriever'+' '+'-'+' '+str(pass_mark)+','+' '+str(defer_mark)+','+' '+str(fail_mark))
             module_retriever += 1
 
 
 
     elif option == "q":
-        print("Program was terminated")
+        print("Program was terminated\n")
         break
     else:
         print("Invalid Input \n")
@@ -125,5 +144,6 @@ while True:
 outcome = progress+module_trailer+module_retriever+exclude
 
 
+outcome_list()
 draw_histogram()
-
+list_file()
